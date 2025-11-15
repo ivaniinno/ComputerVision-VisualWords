@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title">BoVW Retrieval v2 (with images)</h1>
+    <p class="subtitle">Dataset items: {{ total }}</p>
+
+    <div class="tabs is-boxed">
+      <ul>
+        <li class="is-active" data-tab="tab-search"><a>Search</a></li>
+        <li data-tab="tab-browse"><a>Browse</a></li>
+      </ul>
+    </div>
+
+    <div id="tab-search" class="tab-pane is-active">
+      <div class="box">
+        <h2 class="title is-5">Retrieve by existing dataset item</h2>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input id="search-input" class="input" type="text" placeholder="Type filename or title (pic_name)">
+          </div>
+          <div class="control">
+            <a class="button is-info" id="btn-suggest">Suggest</a>
+          </div>
+        </div>
+        <div id="suggestions"></div>
+        <div class="field is-grouped">
+          <div class="control">
+            <div class="select">
+              <select id="topk-select">
+                <option value="10">Top 10</option>
+                <option value="20">Top 20</option>
+                <option value="50">Top 50</option>
+              </select>
+            </div>
+          </div>
+          <div class="control">
+            <a class="button is-primary" id="btn-search">Search</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="search-results"></div>
+
+      <div class="box">
+        <h2 class="title is-5">Similarity distribution</h2>
+        <canvas id="sim-hist"></canvas>
+      </div>
+
+      <div id="bin-items" class="mt-4"></div>
+
+      <div class="box mt-5">
+        <h2 class="title is-5">Or upload a query image</h2>
+        <div class="field is-grouped">
+          <div class="control">
+            <input class="input" type="file" id="upload-file" accept="image/*" />
+          </div>
+          <div class="control">
+            <a class="button is-primary" id="btn-upload-search">Search by image</a>
+          </div>
+          <div class="control">
+            <div class="select">
+              <select id="upload-topk-select">
+                <option value="10">Top 10</option>
+                <option value="20">Top 20</option>
+                <option value="50">Top 50</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="is-size-7">Images are served from your local archive; nothing is copied.</p>
+      </div>
+    </div>
+
+    <div id="tab-browse" class="tab-pane" style="display:none;">
+      <div class="box">
+        <h2 class="title is-5">Filters</h2>
+        <div class="columns">
+          <div class="column is-4">
+            <label class="label">Author</label>
+            <div class="select is-fullwidth">
+              <select id="filter-author">
+                <option value="">Any</option>
+                {% for a in authors %}
+                <option value="{{ a }}">{{ a }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="column is-8">
+            <label class="label">Genres (all must match)</label>
+            <div class="field is-grouped is-grouped-multiline">
+              {% for g in genres[:20] %}
+              <div class="control">
+                <div class="tags has-addons">
+                  <span class="tag is-light">{{ g }}</span>
+                  <a class="tag is-info is-clickable genre-toggle" data-genre="{{ g }}">add</a>
+                </div>
+              </div>
+              {% endfor %}
+              <span class="tag is-light">... (more genres available via query)</span>
+            </div>
+          </div>
+        </div>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input id="browse-query" class="input" type="text" placeholder="Quick filter by filename/title">
+          </div>
+          <div class="control">
+            <a id="btn-apply" class="button is-primary">Apply</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="browse-list"></div>
+
+    </div>
+  </div>
+</section>
+
+<div class="modal" id="explain-modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Similarity Explanation</p>
+      <button class="delete" aria-label="close" id="explain-close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div id="explain-content"></div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button" id="explain-close2">Close</button>
+    </footer>
+  </div>
+</div>
+{% endblock %}

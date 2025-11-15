@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BoVW Retrieval</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    html, body { background-color: #121212; }
+    .section { background-color: #121212; }
+    .title, .subtitle, .label, .modal-card-title { color: #e8e8e8; }
+    .box, .card, .modal-card { background-color: #1e1e1e; color: #e0e0e0; border: 1px solid #2a2a2a; }
+    .tabs.is-boxed li.is-active a { background-color: #1e1e1e; border-color: #363636; color: #fff; }
+    .input, .select select { background-color: #1a1a1a; color: #e6e6e6; border-color: #3a3a3a; }
+    .tab-pane { margin-top: 1rem; }
+    .sim-bar { height: 8px; background: #2a2a2a; border-radius: 4px; overflow: hidden; }
+    .sim-fill { height: 100%; background: #00d1b2; }
+    .card-meta { font-size: 0.9rem; color: #c9c9c9; }
+
+    /* Links and buttons */
+    a, .button { color: #e6e6e6; }
+    .button.is-primary { background-color: #276ef1; border-color: #276ef1; color: #fff; }
+    .button.is-info { background-color: #00b8d9; border-color: #00b8d9; color: #0b0d0e; }
+    .button.is-danger { background-color: #e5484d; border-color: #e5484d; color: #fff; }
+
+    /* Modal tweaks for dark theme */
+    .modal-card-head, .modal-card-foot { background-color: #1b1b1b; border-color: #2c2c2c; }
+    .modal-card-title { color: #f0f0f0; }
+    .modal-card-body { background-color: #1e1e1e; color: #e0e0e0; }
+    .modal-background { background-color: rgba(0,0,0,0.6); }
+
+    /* Table contrast */
+    .table { background-color: #1e1e1e; color: #e0e0e0; }
+    .table thead th { background-color: #242424; color: #f0f0f0; border-color: #333; }
+    .table td, .table th { border-color: #2f2f2f; }
+    .table.is-striped tbody tr:nth-child(odd) { background-color: #1a1a1a; }
+
+    /* Force black rows in Explain table */
+    #explain-modal .table tbody tr { background-color: #000 !important; }
+    #explain-modal .table tbody td { color: #e0e0e0; }
+
+    /* Tags for genre toggles */
+    .tag.is-light { background-color: #2a2a2a; color: #ddd; }
+    .tag.is-info { background-color: #00b8d9; color: #0b0d0e; }
+    .tag.is-danger { background-color: #e5484d; color: #fff; }
+  </style>
+</head>
+<body class="has-background-dark has-text-light">
+  {% block content %}{% endblock %}
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
