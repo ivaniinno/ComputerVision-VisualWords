@@ -1,2 +1,4 @@
-# ComputerVision-VisualWords
-A Project for Computer Vision course at 3rd year Bachelor degree at Innopolis University
+# Visual Words for Image Classification and Retrieval
+
+This project implements a computer vision system for image classification and retrieval based on the Bag of Visual Words (BoVW) method. The system utilizes Scale Invariant Feature Transform (SIFT) descriptors extracted from images, which are then compressed using Incremental Principal Component Analysis (IncrementalPCA) and quantized to optimize storage and processing efficiency. A visual vocabulary of 1000 words is constructed using MiniBatchKMeans clustering on the compressed SIFT descriptors from the WikiArt dataset, which contains over 80,000 artwork images across 27 genres. For the multi-label classification task, various classifiers including XGBoost, Multi-Layer Perceptron, and Support Vector Machines are evaluated using the BoVW representations. The image retrieval system employs cosine similarity to find the top-k most similar images given a query image, achieving high similarity scores (0.75-0.85) for top-ranked results.
+
